@@ -1,0 +1,20 @@
+config:
+  data:
+    log_level: DEBUG
+    # Contents of the actual Beyla configuration file
+    discovery:
+      services:
+        # in this case i'm just instrumenting everything in a certain namespace - there are options: https://grafana.com/docs/beyla/latest/configure/options/#service-discovery
+        - k8s_namespace: default
+    routes:
+      unmatched: heuristic
+    # Decorate the telemetry with kubernetes attributes such as cluster/node etc: https://grafana.com/docs/beyla/latest/configure/options/#kubernetes-decorator
+    attributes:
+      kubernetes:
+        enable: true
+    # I'm going to write metrics directly to the cloud OTLP endpoint for simplicity - you should write data to the local alloy OTLP endpoint instead
+    grafana:
+      otlp:
+        cloud_zone: prod-eu-west-2
+        cloud_instance_id: 925998
+        cloud_api_key: your_api_key
